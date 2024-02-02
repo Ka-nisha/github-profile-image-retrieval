@@ -1,0 +1,37 @@
+import os, shutil
+import schedule
+import time
+
+def files_organise():
+
+    path = r"C:/Users/kanis/OneDrive/Desktop/Python tutorial/"
+
+    file_name = os.listdir(path)
+
+    folder_names = ['csv files', 'image files', 'text files', 'PDF files', 'Word files' ]
+
+    for loop in range(0,5):
+            if not os.path.exists(path + folder_names[loop]):
+                os.makedirs(path + folder_names[loop])
+
+    for file in file_name:
+        if ".csv" in file and not os.path.exists(path + "csv files/" + file):
+            shutil.move(path + file, path + "csv files/" + file)
+        elif "jpg" and ".png"in file and not os.path.exists(path + "image files/" + file):
+            shutil.move(path + file, path + "image files/" + file)
+        elif ".txt" in file and not os.path.exists(path + "text files/" + file):
+            shutil.move(path + file, path + "text files/" + file)
+        elif ".pdf" in file and not os.path.exists(path + "PDF files/" + file):
+            shutil.move(path + file, path + "PDF files/" + file)
+        elif ".docx" in file and not os.path.exists(path + "Word files/" + file):
+            shutil.move(path + file, path + "Word files/" + file)
+    else:
+        print("There are files in this path that were not moved!!")
+    
+schedule.every().day.do(files_organise)
+
+
+while True:
+    schedule.run_pending()
+    time.sleep(1)
+    
